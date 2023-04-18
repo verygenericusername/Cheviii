@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>Chevii - Online Console</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+h1 {
+  color:Black;
+  font-family: 'Roboto', sans-serif;
+}
+.lbl {
+  background-color:green;
+  padding:10px;
+  color:white;
+  font-family: 'Roboto', sans-serif;
+  border-radius:8px;
+}
+</style>
+</head>
+<body>
+  	<center>
+<h1>
+Chevii
+</h1>
+<br>
+<input style="display:none;" id="file" type="file" accept=".cgf" onchange="read(this)">
+<label for="file" class="lbl">Choose File</label>
+<p id="gn">
+Game Name:
+</p>
+<p id="gi">
+Game ID:
+</p>
+<button id="cg" style="display:none;" onclick="closeGame()">
+Close Game
+</button>
+<iframe id="game" width="640" height="640" src="https://verygenericusername.github.io/nogl/">
+
+</iframe>
+</center>
+<script>
+var fc = document.getElementById("file");
+var gn = document.getElementById("gn");
+var gi = document.getElementById("gi");
+var src = "";
+var game = document.getElementById("game");
+var cg = document.getElementById("cg");
+var ccg = false;
+function read(input){
+var file = input.files[0];
+var reader = new FileReader();
+reader.onload = function(){
+var result = reader.result;
+var json = JSON.parse(result);
+gn.innerHTML = "Game Name: " + json.gname;
+var gii = (json.gid < 10) ? "0" + json.gid : json.gid;
+gi.innerHTML = "Game ID: " + gii;
+src = json.link;
+game.src = src;
+cg.style.display = "block";
+ccg = true;
+}
+reader.readAsText(file);
+}
+function closeGame(){
+if(ccg === true){
+src = "https://verygenericusername.github.io/nogl";
+game.src = src;
+cg.style.display = "none";
+ccg = false;
+gn.innerHTML = "Game Name:";
+gi.innerHTML = "Game ID:";
+fc.value = "";
+}
+}
+</script>
+
+  <script type="text/javascript">
+    	
+  </script>
+
+  <style type="text/css">
+    	
+  </style>
+</body>
+</html>
